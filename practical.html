@@ -90,7 +90,7 @@ sections.forEach(s=>{slides.push({type:"section",section:s,title:s.name});for(le
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function list(items){return `<ul>${items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}
 function renderSlide(s,index){
- if(s.type==="cover")return `<section class="slide active" data-index="${index}"><div class="hero"><div class="eyebrow">IBN-E-SINA DEVELOPERS</div><h1>WEB DEVELOPMENT<br><span>TRAINING</span></h1><div class="training">HTML · CSS · BOOTSTRAP · JAVASCRIPT</div><div class="hero-rule"></div><div class="instructor">INSTRUCTOR<b>ENGR. ADEEL NOSHAHI</b></div><div class="hero-tag">30-DAY BEGINNER TRAINING PROGRAM</div></div></section>`;
+ if(s.type==="cover")return `<section class="slide active" data-index="${index}"><div class="hero"><div class="eyebrow">IBN-E-SINA DEVELOPERS</div><h1>WEB DEVELOPMENT<br><span>TRAINING</span></h1><div class="training">HTML · CSS · BOOTSTRAP · JAVASCRIPT</div><div class="hero-rule"></div><div class="instructor">INSTRUCTOR<b>ENGR. ADEEL NOSHAHI</b></div><div class="hero-tag">30-DAY PRACTICAL TRAINING FOR SOFTWARE ENGINEERS</div></div></section>`;
  if(s.type==="schedule")return `<section class="slide" data-index="${index}"><div class="kicker">Course orientation</div><h2>Daily Time Distribution</h2><p class="lead">A consistent class routine balances theory, discussion, demonstration and independent hands-on practice.</p><div class="card">${[
 ["1 Hour","Theory lecture","Whiteboard teaching: concepts, definitions, syntax, diagrams and examples."],
 ["30 Minutes","Revision & Q/A","Review the previous lesson, ask questions and clear student doubts."],

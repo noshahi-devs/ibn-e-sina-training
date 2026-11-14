@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IBN-E-SINA DEVELOPERS | 10-Day Theory Bootcamp</title>
+<title>IBN-E-SINA DEVELOPERS | 10-Day Theory Training for Software Engineers</title>
 <style>
 :root{--navy:#101a33;--navy2:#172746;--orange:#f28c28;--gold:#f6c66a;--ink:#172033;--muted:#687386;--bg:#f3f5f9;--card:#fff;--line:#e5e9f0;--green:#198754;--blue:#1d4ed8;--purple:#7c3aed}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -126,7 +126,7 @@ tr:hover td{background:#fdfdfd}
   <div class="brand">
     <div class="brand-mark">IS</div>
     <strong>IBN-E-SINA DEVELOPERS</strong>
-    <small>THEORY BOOTCAMP</small>
+    <small>THEORY TRAINING</small>
   </div>
   <nav class="nav" id="nav"></nav>
   <div class="sidebar-foot">
@@ -139,7 +139,7 @@ tr:hover td{background:#fdfdfd}
   <header class="topbar">
     <div class="top-left">
       <button class="menu-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">☰</button>
-      <div class="crumb" id="crumb">Bootcamp / Welcome</div>
+      <div class="crumb" id="crumb">Theory Training / Welcome</div>
     </div>
     <div class="top-right">
       <a href="index.html" class="nav-link-btn">⌂ Home</a>
@@ -679,8 +679,8 @@ function renderSlide(s, index){
     return `
       <section class="slide active" data-index="${index}">
         <div class="hero">
-          <div class="eyebrow">IBN-E-SINA DEVELOPERS · 10-DAY BOOTCAMP</div>
-          <h1>FULL STACK WEB DEVELOPMENT<br><span>THEORY BOOTCAMP</span></h1>
+          <div class="eyebrow">IBN-E-SINA DEVELOPERS · 10-DAY THEORY TRAINING</div>
+          <h1>FULL STACK WEB DEVELOPMENT<br><span>THEORY TRAINING</span></h1>
           <div class="training">SOFTWARE FOUNDATIONS · ARCHITECTURE · BACKEND · DATABASES · SQA · CYBERSECURITY</div>
           <div class="hero-rule"></div>
           <div class="instructor">
@@ -688,7 +688,7 @@ function renderSlide(s, index){
             <b>ENGR. ADEEL NOSHAHI</b>
           </div>
           <div class="hero-tag">
-            <span class="hero-badge">🎓 Intermediate-Pass Students</span>
+            <span class="hero-badge">💻 Software Engineers Training</span>
             <span class="hero-badge">⏳ 10 Intensive Days</span>
             <span class="hero-badge">💡 Theory + Whiteboard Discussions + Workshops</span>
           </div>
@@ -700,8 +700,8 @@ function renderSlide(s, index){
   if(s.type === "objectives"){
     return `
       <section class="slide" data-index="${index}">
-        <div class="kicker">Core Foundation · Curriculum Objectives</div>
-        <h2>Bootcamp Objectives & Core Topics</h2>
+        <div class="kicker">Core Foundation · Software Engineering Objectives</div>
+        <h2>Software Engineering Objectives & Core Topics</h2>
         <p class="lead">Essential conceptual foundations to understand and master before beginning hands-on code implementation.</p>
         <div class="grid">
           <div class="card objective-card">
@@ -779,7 +779,7 @@ function renderSlide(s, index){
       <section class="slide" data-index="${index}">
         <div class="kicker">Curriculum Matrix</div>
         <h2>10-Day Theory Roadmap Overview</h2>
-        <p class="lead">Complete overview of topics covered across the 10-day foundational bootcamp.</p>
+        <p class="lead">Complete overview of topics covered across the 10-day foundational software engineering training.</p>
         <div class="card wide">
           <div class="table-wrap">
             <table>
@@ -813,8 +813,8 @@ function renderSlide(s, index){
     return `
       <section class="slide" data-index="${index}">
         <div class="kicker">Instructor Guidelines</div>
-        <h2>Bootcamp Delivery Guidelines</h2>
-        <p class="lead">Recommended delivery methodology for the instructor when presenting slides and explaining on the whiteboard.</p>
+        <h2>Training Delivery Guidelines</h2>
+        <p class="lead">Recommended delivery methodology for the instructor when presenting slides and explaining on the whiteboard to software engineers.</p>
         <div class="grid">
           <div class="card">
             <h3>🗣️ Simple Language & Real-Life Analogies</h3>
@@ -846,7 +846,7 @@ function renderSlide(s, index){
           </div>
           <div class="card wide workshop-card">
             <h3>🚀 Progression to 30-Day Practical Training</h3>
-            <p>Upon completing these 10 days of theoretical architecture and engineering foundations, students are fully prepared to start the <strong>30-Day Practical Web Development Training</strong> with strong conceptual clarity.</p>
+            <p>Upon completing these 10 days of theoretical architecture and engineering foundations, software engineers are fully prepared to start the <strong>30-Day Practical Web Development Training</strong> with strong conceptual clarity.</p>
           </div>
         </div>
       </section>
@@ -895,7 +895,7 @@ function show(n){
   document.querySelectorAll(".slide").forEach((el, i) => el.classList.toggle("active", i === current));
   document.querySelectorAll("[data-slide]").forEach(b => b.classList.toggle("active", Number(b.dataset.slide) === current));
   let s = slides[current];
-  document.getElementById("crumb").textContent = "Theory Bootcamp / " + s.title;
+  document.getElementById("crumb").textContent = "Theory Training / " + s.title;
   document.getElementById("progressText").textContent = (current + 1) + " / " + slides.length;
   document.getElementById("progressBar").style.width = ((current + 1) / slides.length * 100) + "%";
   document.getElementById("backBtn").disabled = current === 0;
