@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBN-E-SINA DEVELOPERS | 10-Day Theory Bootcamp</title>
+<style>
+:root{--navy:#101a33;--navy2:#172746;--orange:#f28c28;--gold:#f6c66a;--ink:#172033;--muted:#687386;--bg:#f3f5f9;--card:#fff;--line:#e5e9f0;--green:#198754;--blue:#1d4ed8;--purple:#7c3aed}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button{font:inherit;cursor:pointer}a{text-decoration:none;color:inherit}.app{min-height:100vh}
+.sidebar{position:fixed;inset:0 auto 0 0;width:295px;background:var(--navy);color:#fff;z-index:20;display:flex;flex-direction:column;transition:width .25s,transform .25s;box-shadow:8px 0 30px #0d19301c}
+.brand{padding:22px 20px 18px;border-bottom:1px solid #ffffff1c}
+.brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--orange),var(--gold));display:grid;place-items:center;color:var(--navy);font-weight:900;font-size:19px;margin-bottom:12px}
+.brand strong{display:block;font-size:15px;letter-spacing:1.2px}
+.brand small{color:#aebbd1;letter-spacing:2px;font-size:10px}
+.nav{padding:14px 10px;overflow:auto;flex:1}
+.nav-label{font-size:10px;letter-spacing:1.7px;color:#8e9bb3;padding:12px 10px 6px;text-transform:uppercase}
+.nav button{width:100%;border:0;background:transparent;color:#dce4f1;text-align:left;padding:10px 12px;border-radius:9px;display:flex;align-items:center;gap:10px;font-size:13px;margin:2px 0;transition:all .15s ease}
+.nav button:hover,.nav button.active{background:#ffffff16;color:#fff}
+.nav button.active{box-shadow:inset 3px 0 var(--orange);background:#ffffff1c}
+.nav .sub{padding-left:22px;font-size:12px;color:#b8c5d8}
+.nav .sub.active{color:#fff}
+.sidebar-foot{padding:14px 18px;border-top:1px solid #ffffff1c;color:#9eacc2;font-size:11px;line-height:1.5}
+.sidebar-foot a{color:var(--gold);display:inline-block;margin-top:6px;font-weight:600}
+.main{margin-left:295px;min-height:100vh;transition:margin .25s}
+.topbar{height:66px;background:#ffffffeb;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:10}
+.top-left{display:flex;align-items:center;gap:14px}
+.menu-btn{border:1px solid var(--line);background:#fff;border-radius:9px;width:38px;height:38px;font-size:19px;color:var(--navy)}
+.crumb{font-size:13px;color:var(--muted);font-weight:500}
+.top-right{display:flex;align-items:center;gap:12px}
+.nav-link-btn{border:1px solid var(--line);background:#fff;color:var(--navy);font-size:12px;font-weight:700;padding:7px 14px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;transition:all .2s ease}
+.nav-link-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.nav-link-btn.accent{background:#fff3e5;color:#b25807;border-color:#fcdcb8}
+.nav-link-btn.accent:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.content{max-width:1160px;margin:0 auto;padding:36px 36px 115px}
+.slide{display:none;animation:fade .28s ease}
+.slide.active{display:block}
+@keyframes fade{from{opacity:.35;transform:translateY(7px)}to{opacity:1;transform:none}}
+.kicker{color:#d56d12;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hero{min-height:calc(100vh - 190px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-radius:24px;padding:clamp(32px,6vw,72px);background:radial-gradient(circle at 88% 20%,#f8b75a44,transparent 28%),linear-gradient(135deg,#101a33,#1d3458 70%,#263c60);color:#fff;box-shadow:0 24px 65px #17274625}
+.hero:after{content:"";position:absolute;width:380px;height:380px;border:1px solid #ffffff20;border-radius:50%;right:-100px;bottom:-170px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06}
+.hero .eyebrow{color:var(--gold);letter-spacing:4px;font-size:13px;font-weight:700}
+.hero h1{font-size:clamp(34px,5.5vw,64px);line-height:1.08;letter-spacing:-1.5px;margin:18px 0 14px;max-width:850px}
+.hero h1 span{color:var(--gold)}
+.hero .training{font-size:clamp(16px,2vw,22px);letter-spacing:3px;font-weight:300;color:#d9e2ef;line-height:1.4}
+.hero-rule{width:80px;height:4px;background:var(--orange);margin:24px 0}
+.instructor{font-size:14px;color:#d7dfeb;letter-spacing:1px}
+.instructor b{display:block;color:#fff;font-size:18px;margin-top:6px}
+.hero-tag{margin-top:35px;color:#aab9d0;font-size:12px;letter-spacing:2px;display:flex;flex-wrap:wrap;gap:12px}
+.hero-badge{display:inline-block;padding:5px 12px;background:#ffffff15;border-radius:20px;border:1px solid #ffffff25;font-size:11px}
+h2{font-size:clamp(26px,3.5vw,38px);letter-spacing:-.8px;margin:0 0 12px;color:var(--navy)}
+.lead{font-size:15px;line-height:1.7;color:var(--muted);max-width:850px;margin:0 0 24px}
+.section-head{display:flex;align-items:center;gap:15px;margin-bottom:24px}
+.section-icon{width:54px;height:54px;border-radius:15px;background:#fff;box-shadow:0 5px 20px #17274610;display:grid;place-items:center;font-size:26px}
+.day-count{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px;box-shadow:0 5px 18px #17274608}
+.card h3{margin:0 0 14px;color:var(--navy);font-size:16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f1f5f9;padding-bottom:10px}
+.card p{margin:0;color:var(--muted);line-height:1.65;font-size:14px}
+.topic-list{list-style:none;padding:0;margin:0}
+.topic-list>li{padding:8px 0;border-bottom:1px dashed #f1f5f9;font-size:14.5px;color:#1e293b;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.topic-list>li:last-child{border-bottom:none;padding-bottom:0}
+.topic-list>li::before{content:"•";color:var(--orange);font-size:18px;line-height:1;margin-top:2px}
+.sub-topics{list-style:none;padding-left:20px;margin:6px 0 0;width:100%}
+.sub-topics li{font-size:13.5px;color:#475569;padding:4px 0;display:flex;align-items:center;gap:8px}
+.sub-topics li::before{content:"–";color:#94a3b8;font-weight:bold}
+.wide{grid-column:1/-1}
+.workshop-card{background:linear-gradient(135deg,#fffbf5,#fff4e5);border:1px solid #f9dab3;border-left:5px solid var(--orange)}
+.workshop-card h3{color:#a2510b;border-bottom-color:#f8dfbe}
+.workshop-card p{color:#78350f;font-weight:500;font-size:14px}
+.objective-card{background:#f8faff;border-left:5px solid #2563eb}
+.objective-card h3{color:#1e40af;border-bottom-color:#dbeafe}
+.badge{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-orange{background:#fff1df;color:#a9540d}
+.badge-blue{background:#eff6ff;color:#1d4ed8}
+.badge-green{background:#ecfdf5;color:#047857}
+.table-wrap{overflow-x:auto;margin-top:10px;border-radius:10px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;text-align:left}
+th{background:#f8fafc;padding:11px 14px;color:var(--navy);font-weight:700;border-bottom:1px solid var(--line)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);color:#334155}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fdfdfd}
+.bottom-nav{position:fixed;bottom:0;left:295px;right:0;padding:14px 30px;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;z-index:9;transition:left .25s}
+.progress-wrap{display:flex;align-items:center;gap:12px;flex:1;max-width:380px}
+.progress{height:6px;background:#e8ebf1;border-radius:20px;overflow:hidden;flex:1}
+.progress>span{display:block;height:100%;background:var(--orange);width:0;transition:width .2s}
+.progress-text{font-size:11px;color:var(--muted);white-space:nowrap}
+.controls{display:flex;gap:10px}
+.btn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:9px;padding:9px 16px;font-weight:700;font-size:12px;transition:all .15s ease}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 3px 10px #00000010}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.mobile-shade{display:none}
+.sidebar.collapsed{width:76px}
+.sidebar.collapsed .brand{padding:18px 17px}
+.sidebar.collapsed .brand strong,.sidebar.collapsed .brand small,.sidebar.collapsed .nav-label,.sidebar.collapsed .nav button .txt,.sidebar.collapsed .sidebar-foot{display:none}
+.sidebar.collapsed .nav button{justify-content:center;padding:12px 5px}
+.main.expanded{margin-left:76px}
+.bottom-nav.expanded{left:76px}
+@media(max-width:890px){
+.sidebar{transform:translateX(-100%);width:285px}
+.sidebar.mobile-open{transform:translateX(0)}
+.main{margin-left:0}
+.bottom-nav{left:0}
+.content{padding:22px 16px 105px}
+.topbar{padding:0 16px}
+.grid{grid-template-columns:1fr}
+.mobile-shade.show{display:block;position:fixed;inset:0;background:#07122680;z-index:15}
+.top-right .hide-mobile{display:none}
+.hero{min-height:75vh}
+.progress-wrap{max-width:140px}
+.btn{padding:8px 12px}
+}
+@media print{
+.sidebar,.topbar,.bottom-nav{display:none!important}
+.main{margin:0}
+.slide{display:block!important;page-break-after:always}
+.content{padding:20px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="mobile-shade" id="shade" onclick="toggleSidebar(false)"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">IS</div>
+    <strong>IBN-E-SINA DEVELOPERS</strong>
+    <small>THEORY BOOTCAMP</small>
+  </div>
+  <nav class="nav" id="nav"></nav>
+  <div class="sidebar-foot">
+    Instructor: <b>Engr. Adeel Noshahi</b><br>
+    Full Stack Web Development<br>
+    <a href="practical.html">Switch to Practical Track →</a>
+  </div>
+</aside>
+<main class="main" id="main">
+  <header class="topbar">
+    <div class="top-left">
+      <button class="menu-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">☰</button>
+      <div class="crumb" id="crumb">Bootcamp / Welcome</div>
+    </div>
+    <div class="top-right">
+      <a href="index.html" class="nav-link-btn">⌂ Home</a>
+      <a href="practical.html" class="nav-link-btn accent hide-mobile">💻 Practical (30 Days) →</a>
+    </div>
+  </header>
+  <div class="content" id="slides"></div>
+</main>
+<footer class="bottom-nav" id="bottom">
+  <div class="progress-wrap">
+    <div class="progress"><span id="progressBar"></span></div>
+    <span class="progress-text" id="progressText">1 / 14</span>
+  </div>
+  <div class="controls">
+    <button class="btn" id="backBtn" onclick="move(-1)">← Back</button>
+    <button class="btn primary" id="nextBtn" onclick="move(1)">Next →</button>
+  </div>
+</footer>
+</div>
+
+<script>
+const theoryDays = [
+  {
+    day: 1,
+    title: "Introduction to Software & Web Development",
+    icon: "💻",
+    kicker: "Day 1 · Foundations",
+    sections: [
+      {
+        title: "🖥️ Software & Hardware Fundamentals",
+        topics: [
+          "Software Definition & Core Concepts",
+          "Hardware Definition & Physical Components",
+          "Software Categories & Platforms:",
+          ["Web Applications", "Desktop Applications", "Mobile Applications", "Games"],
+          "Software Examples in Daily Life (Communication, Banking, E-Commerce, Education)"
+        ]
+      },
+      {
+        title: "🏢 Industry Landscape & Developer Roles",
+        topics: [
+          "Software House Environment & Operations",
+          "Core Responsibilities of a Software Developer",
+          "Key Engineering Roles in Software Teams:",
+          ["UI / UX Designer", "Frontend Developer", "Backend Developer", "QA & Testing Engineer", "Project Manager"]
+        ]
+      },
+      {
+        title: "🌐 Web Development & Full Stack Scope",
+        topics: [
+          "Web Development Overview",
+          "Website vs Web Application Comparison",
+          "Static Content vs Dynamic Web Systems",
+          "Full Stack Development Stack:",
+          ["Frontend (Client-side Presentation)", "Backend (Server-side Business Logic)", "Database (Persistent Storage)"]
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Identify different software applications used daily. Classify their platform (Web / Mobile / Desktop) and analyze their business purpose."
+    }
+  },
+  {
+    day: 2,
+    title: "Web Development Fundamentals & Architecture",
+    icon: "🌐",
+    kicker: "Day 2 · Internet & Architecture",
+    sections: [
+      {
+        title: "🌍 Internet & Web Infrastructure",
+        topics: [
+          "Internet vs World Wide Web (WWW)",
+          "Web Browsers & Rendering Engines",
+          "Domain Name System (DNS) & Domain Names",
+          "Web Hosting & Server Hardware",
+          "Web Servers & Static / Dynamic File Serving"
+        ]
+      },
+      {
+        title: "🔄 Client-Server Architecture",
+        topics: [
+          "Client (Browser / Device) Role",
+          "Server (Web / API / Database) Role",
+          "The Request-Response Communication Cycle",
+          "Communication Flow between Frontend, Backend & Database"
+        ]
+      },
+      {
+        title: "🏛️ 3-Tier Web Application Architecture",
+        topics: [
+          "Presentation Tier (Frontend UI & Layout)",
+          "Application Tier (Backend Logic, Validation & Rules)",
+          "Data Tier (Database Storage & Queries)",
+          "Web Application Architecture Models"
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Draw the end-to-end 3-tier architecture diagram of a Simple School Management System on the whiteboard showing client, backend API, and database interaction."
+    }
+  },
+  {
+    day: 3,
+    title: "Frontend Development & Frameworks",
+    icon: "🎨",
+    kicker: "Day 3 · Client-Side Tech",
+    sections: [
+      {
+        title: "🧱 Core Frontend Technologies",
+        topics: [
+          "Frontend Development Scope & Purpose",
+          "HTML — Document Structure & Content Hierarchy",
+          "CSS — Visual Styling, Flexbox, Grid & Responsive Layouts",
+          "JavaScript — Dynamic Behavior, Events & DOM Manipulation",
+          "Bootstrap 5 — Component Library & Utility Classes"
+        ]
+      },
+      {
+        title: "🚀 Modern Frontend Frameworks",
+        customHtml: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Framework / Library</th><th>Primary Purpose & Architecture</th><th>Industry Focus</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Angular</strong></td><td>Full-fledged TypeScript enterprise framework</td><td>Large Enterprise / ERP Portals</td></tr>
+                <tr><td><strong>React</strong></td><td>Component-based UI rendering library</td><td>High-Traffic Interactive SPAs</td></tr>
+                <tr><td><strong>Vue.js</strong></td><td>Progressive lightweight frontend framework</td><td>Fast SPAs & Medium Applications</td></tr>
+                <tr><td><strong>Next.js</strong></td><td>React framework with SSR & Fullstack capabilities</td><td>SEO & High-Performance Websites</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      {
+        title: "⚡ Selected Technology: Angular & TypeScript",
+        topics: [
+          "TypeScript Language & Compile-Time Safety",
+          "Angular Component-Based Architecture",
+          "PrimeNG Enterprise UI Component Library",
+          "Core Reasons for Selecting Angular:",
+          [
+            "Structured & Standardized Architecture",
+            "Built-in Dependency Injection & Routing",
+            "Two-Way Data Binding & RxJS Observables",
+            "Optimal for Large ERP & Business Applications"
+          ]
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Compare Angular, React, and Vue on the whiteboard. Discuss architectural factors that make Angular suited for large-scale enterprise ERP systems."
+    }
+  },
+  {
+    day: 4,
+    title: "Backend Development & Object-Oriented Programming",
+    icon: "⚙️",
+    kicker: "Day 4 · Server-Side & OOP",
+    sections: [
+      {
+        title: "🧠 Backend Engineering Fundamentals",
+        topics: [
+          "Backend Development & Server-Side Execution",
+          "Server-Side Programming Concepts",
+          "Business Logic, Calculations & Rules",
+          "Backend and Frontend Integration",
+          "Web API (Application Programming Interface) Role"
+        ]
+      },
+      {
+        title: "🌐 Backend Technologies Landscape",
+        customHtml: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Language</th><th>Framework</th><th>Typical Industry Usage</th></tr></thead>
+              <tbody>
+                <tr><td><strong>C#</strong></td><td>ASP.NET Core</td><td>Enterprise Web APIs, High-Performance Systems, Cloud</td></tr>
+                <tr><td><strong>JavaScript / TS</strong></td><td>Node.js / NestJS</td><td>Real-Time Web Apps, Microservices, Event-Driven</td></tr>
+                <tr><td><strong>Python</strong></td><td>Django / FastAPI</td><td>Data-Driven Platforms, AI Integration, Fast APIs</td></tr>
+                <tr><td><strong>PHP</strong></td><td>Laravel</td><td>Content Management, Web Applications & Portals</td></tr>
+                <tr><td><strong>Java</strong></td><td>Spring Boot</td><td>Banking, Telecom & Large Enterprise Systems</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      {
+        title: "💎 Selected Tech: C# .NET & OOP Principles",
+        topics: [
+          "C# Language & .NET Core Ecosystem",
+          "ASP.NET Core Web API Development",
+          "Application Scenarios for C# (.NET Web, Desktop, Mobile, Cloud, Games)",
+          "Object-Oriented Programming (OOP) Pillars:",
+          [
+            "Classes & Objects (Blueprints & Instances)",
+            "Encapsulation (Data Protection & Access Control)",
+            "Inheritance (Code Reuse & Hierarchy)",
+            "Polymorphism (Method Overriding & Overloading)",
+            "Abstraction (Hiding Complex Implementation)"
+          ]
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Model a School Management System backend on the whiteboard using OOP classes (Student, Teacher, Course) showing inheritance and encapsulation."
+    }
+  },
+  {
+    day: 5,
+    title: "Database Fundamentals, REST APIs & HTTP",
+    icon: "🗄️",
+    kicker: "Day 5 · Data & Protocols",
+    sections: [
+      {
+        title: "📊 Database Fundamentals & SQL",
+        topics: [
+          "Database Definition & DBMS Concepts",
+          "Structured Query Language (SQL)",
+          "Tables, Rows, Columns & Data Types",
+          "Primary Keys & Foreign Keys",
+          "Database Relationships (One-to-One, One-to-Many, Many-to-Many)",
+          "Relational (SQL) vs Non-Relational (NoSQL) Databases",
+          "Database Design & Normalization Basics",
+          "Selected Database Engine: Microsoft SQL Server"
+        ]
+      },
+      {
+        title: "📡 API Fundamentals & REST Architecture",
+        topics: [
+          "API Definition & System Integration",
+          "REST API Principles & Statelessness",
+          "JSON (JavaScript Object Notation) Format",
+          "API Testing & Documentation Tools:",
+          ["Swagger (OpenAPI UI)", "Postman (Request Testing & Debugging)"]
+        ]
+      },
+      {
+        title: "🌐 HTTP Communication & Methods",
+        topics: [
+          "HTTP & HTTPS Protocols (Encryption & Handshake)",
+          "Internet Protocols Overview (TCP/IP, DNS, FTP, WebSocket, SMTP)",
+          "HTTP Verbs & CRUD Mapping:",
+          ["GET (Read)", "POST (Create)", "PUT / PATCH (Update)", "DELETE (Remove)"],
+          "Core HTTP Status Codes (200, 201, 400, 401, 403, 404, 500)"
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Trace the complete data journey on whiteboard: A student admission submission from Angular UI → HTTP POST request → .NET Web API → SQL Server table insert."
+    }
+  },
+  {
+    day: 6,
+    title: "Software Engineering & SDLC Methodologies",
+    icon: "📐",
+    kicker: "Day 6 · Process & Lifecycle",
+    sections: [
+      {
+        title: "📋 Software Development Life Cycle (SDLC)",
+        topics: [
+          "Software Engineering Discipline & Standards",
+          "SDLC Phases:",
+          [
+            "Requirement Gathering & Scope Analysis",
+            "Project Planning & Estimation",
+            "System Architecture & UI / UX Design",
+            "Implementation & Development",
+            "Quality Assurance & Testing",
+            "Deployment & Production Release",
+            "Maintenance, Monitoring & Support"
+          ]
+        ]
+      },
+      {
+        title: "🔄 Development Methodologies",
+        topics: [
+          "Waterfall Model (Sequential Phases & Limitations)",
+          "Agile Methodology (Iterative, Incremental & Adaptive)",
+          "Scrum Framework (Sprints & Team Roles)",
+          "Kanban (Continuous Flow & Task Boards)"
+        ]
+      },
+      {
+        title: "👥 Scrum Roles & Ceremonies",
+        topics: [
+          "Scrum Roles:",
+          ["Product Owner", "Scrum Master", "Development Team"],
+          "Scrum Artifacts:",
+          ["Product Backlog", "Sprint Backlog", "Sprint Deliverables"],
+          "Scrum Ceremonies:",
+          ["Sprint Planning", "Daily Stand-up Meeting", "Sprint Review & Demo", "Sprint Retrospective"]
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Plan a 2-week Sprint for a School Portal on the whiteboard: Define user stories, backlog items, sprint tasks, and simulate a 5-minute Daily Stand-up."
+    }
+  },
+  {
+    day: 7,
+    title: "Development Tools & Team Collaboration",
+    icon: "🛠️",
+    kicker: "Day 7 · Tooling & Teamwork",
+    sections: [
+      {
+        title: "🧰 Developer Toolset",
+        topics: [
+          "Visual Studio 2022 (C#, .NET, Web APIs, Debugging)",
+          "Visual Studio Code (HTML, CSS, JavaScript, Angular)",
+          "SQL Server Management Studio (SSMS)",
+          "Postman API Client",
+          "Browser Developer Tools (Inspect Elements, Console, Network Tab)"
+        ]
+      },
+      {
+        title: "🌿 Git & GitHub Version Control",
+        topics: [
+          "Version Control Concepts & Importance",
+          "Git Repositories (Local & Remote)",
+          "Git Workflow (Commit, Push, Pull, Fetch)",
+          "Branching Strategies & Feature Branches",
+          "Merge Conflicts & Resolution",
+          "Pull Requests (PR) & Code Review Process"
+        ]
+      },
+      {
+        title: "🤝 Team Collaboration & Software House Culture",
+        topics: [
+          "Collaboration Tools (Google Workspace, Jira, GitHub, Slack / Teams)",
+          "Team Roles & Task Assignment",
+          "Daily Standup Meetings & Progress Tracking",
+          "Code Reviews & Quality Standards",
+          "Professional Workplace Communication & Team Ethics"
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Simulate a software agency sprint on whiteboard: Assign team roles (Lead, Frontend, Backend, QA) and trace a feature from Jira ticket to Git Pull Request."
+    }
+  },
+  {
+    day: 8,
+    title: "Problem Solving & Professional Skills",
+    icon: "💡",
+    kicker: "Day 8 · Mindset & Soft Skills",
+    sections: [
+      {
+        title: "🔍 Problem-Solving & Analytical Thinking",
+        topics: [
+          "Problem-Solving Mindset in Software Development",
+          "Logical Thinking & Algorithmic Problem Breakdown",
+          "Critical Thinking in Requirement Evaluation",
+          "Root Cause Analysis & '5 Whys' Technique",
+          "Structured Debugging Methodologies"
+        ]
+      },
+      {
+        title: "⚖️ Decision Making & Risk Management",
+        topics: [
+          "Technical Decision Making Process",
+          "Evaluating Options & Pros / Cons Analysis",
+          "Decision Making Under Deadlines & Pressure",
+          "Project Risk Identification (Scope Creep, Technical Debt)",
+          "Risk Impact Analysis & Alternative Solutions"
+        ]
+      },
+      {
+        title: "🌟 Professional Skills & Workplace Ethics",
+        topics: [
+          "Professional Communication & Technical Presentations",
+          "Teamwork, Active Listening & Collaboration",
+          "Ownership, Accountability & Reliability",
+          "Time Management, Priority Matrix & Discipline",
+          "Continuous Self-Learning & Adaptability",
+          "Professional Ethics & Intellectual Property Protection"
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Analyze real-world workplace scenarios: Discuss client requirement changes near deadline, production bug triage, and professional communication strategies."
+    }
+  },
+  {
+    day: 9,
+    title: "Software Quality Assurance & Deployment",
+    icon: "🚀",
+    kicker: "Day 9 · QA & Deployment",
+    sections: [
+      {
+        title: "🧪 Software Quality Assurance & Testing",
+        topics: [
+          "Software Quality Concepts & Standards",
+          "QA vs Software Testing",
+          "Importance of Testing in Software Industry",
+          "Bugs, Errors & Defect Lifecycle",
+          "Test Case Design & Test Execution",
+          "Bug Reporting & Verification"
+        ]
+      },
+      {
+        title: "🔬 Testing Categories & Methodologies",
+        topics: [
+          "Manual Testing vs Automated Testing",
+          "Unit Testing (Individual Modules & Functions)",
+          "Integration Testing (API & Database Interaction)",
+          "Functional Testing & End-to-End User Journeys",
+          "Performance, Load & Stress Testing",
+          "Security Testing",
+          "User Acceptance Testing (UAT)"
+        ]
+      },
+      {
+        title: "🌐 Deployment, Hosting & IIS Server",
+        topics: [
+          "Deployment Concepts & Production Servers",
+          "Domain Names, DNS Records & SSL Certificates",
+          "Development vs Staging vs Production Environments",
+          "Cloud Hosting vs Virtual Private Server (VPS)",
+          "Windows IIS (Internet Information Services):",
+          ["Application Pools & Isolation", "Website Bindings & Ports", "HTTPS / SSL Configuration"],
+          "Introduction to DevOps & CI/CD Pipelines"
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Map out the complete deployment checklist on the whiteboard for publishing a School Management System on Windows IIS Server."
+    }
+  },
+  {
+    day: 10,
+    title: "Cybersecurity & Secure Web Development",
+    icon: "🛡️",
+    kicker: "Day 10 · Application Security",
+    sections: [
+      {
+        title: "🔒 Security Fundamentals & Access Control",
+        topics: [
+          "Cybersecurity & Application Security Scope",
+          "CIA Triad (Confidentiality, Integrity, Availability)",
+          "Data Protection & Security Compliance",
+          "Authentication vs Authorization",
+          "Login Systems, Registration & Password Policies",
+          "Multi-Factor Authentication (MFA)",
+          "Role-Based Access Control (RBAC)"
+        ]
+      },
+      {
+        title: "🔑 Tokens, Cryptography & Sessions",
+        topics: [
+          "Tokens & JSON Web Tokens (JWT)",
+          "Access Tokens vs Refresh Tokens",
+          "User Sessions, Cookies & Local / Session Storage",
+          "Encryption vs Hashing (One-Way Cryptographic Hashing)",
+          "Symmetric vs Asymmetric Encryption (Public & Private Keys)",
+          "HTTPS & SSL / TLS Transport Security"
+        ]
+      },
+      {
+        title: "⚠️ Vulnerabilities, Attacks & Best Practices",
+        topics: [
+          "Common Web Attacks:",
+          ["SQL Injection (SQLi)", "Cross-Site Scripting (XSS)", "Cross-Site Request Forgery (CSRF)", "Brute Force & DDoS Attacks"],
+          "OWASP Top 10 Security Standards",
+          "Defense Practices (Input Validation, Output Encoding, Parameterized Queries, Rate Limiting)",
+          "Security Auditing, Logging & Penetration Testing"
+        ]
+      }
+    ],
+    workshop: {
+      title: "🛠️ Workshop & Whiteboard Discussion",
+      desc: "Perform a security audit discussion on the whiteboard: Identify vulnerabilities in a school portal (unhashed passwords, raw SQL, missing auth) and design security defenses."
+    }
+  }
+];
+
+const slides = [];
+
+// Slide 0: Cover
+slides.push({
+  type: "cover",
+  title: "Welcome & Overview"
+});
+
+// Slide 1: Course Objectives
+slides.push({
+  type: "objectives",
+  title: "Main Objectives"
+});
+
+// Slides 2-11: Days 1-10
+theoryDays.forEach(d => {
+  slides.push({
+    type: "day",
+    data: d,
+    title: "Day " + d.day + ": " + d.title.split("&")[0].trim()
+  });
+});
+
+// Slide 12: 10-Day Summary Table
+slides.push({
+  type: "summary",
+  title: "10-Day Curriculum Overview"
+});
+
+// Slide 13: Teaching Guidelines
+slides.push({
+  type: "guidelines",
+  title: "Teaching Guidelines"
+});
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function renderTopics(items){
+  let html = `<ul class="topic-list">`;
+  items.forEach(item => {
+    if(Array.isArray(item)){
+      html += `<ul class="sub-topics">${item.map(sub => `<li>${esc(sub)}</li>`).join("")}</ul>`;
+    } else {
+      html += `<li><div>${esc(item)}</div></li>`;
+    }
+  });
+  html += `</ul>`;
+  return html;
+}
+
+function renderSlide(s, index){
+  if(s.type === "cover"){
+    return `
+      <section class="slide active" data-index="${index}">
+        <div class="hero">
+          <div class="eyebrow">IBN-E-SINA DEVELOPERS · 10-DAY BOOTCAMP</div>
+          <h1>FULL STACK WEB DEVELOPMENT<br><span>THEORY BOOTCAMP</span></h1>
+          <div class="training">SOFTWARE FOUNDATIONS · ARCHITECTURE · BACKEND · DATABASES · SQA · CYBERSECURITY</div>
+          <div class="hero-rule"></div>
+          <div class="instructor">
+            INSTRUCTOR & CURRICULUM LEAD
+            <b>ENGR. ADEEL NOSHAHI</b>
+          </div>
+          <div class="hero-tag">
+            <span class="hero-badge">🎓 Intermediate-Pass Students</span>
+            <span class="hero-badge">⏳ 10 Intensive Days</span>
+            <span class="hero-badge">💡 Theory + Whiteboard Discussions + Workshops</span>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  if(s.type === "objectives"){
+    return `
+      <section class="slide" data-index="${index}">
+        <div class="kicker">Core Foundation · Curriculum Objectives</div>
+        <h2>Bootcamp Objectives & Core Topics</h2>
+        <p class="lead">Essential conceptual foundations to understand and master before beginning hands-on code implementation.</p>
+        <div class="grid">
+          <div class="card objective-card">
+            <h3>🎯 Software & Architecture</h3>
+            <ul class="topic-list">
+              <li><div>Software Development Concepts & Ecosystem</div></li>
+              <li><div>Internet, Browsers & Web Mechanics</div></li>
+              <li><div>Client-Server Model & 3-Tier Web Architecture</div></li>
+            </ul>
+          </div>
+          <div class="card objective-card">
+            <h3>🌐 Full Stack Technologies</h3>
+            <ul class="topic-list">
+              <li><div>Frontend Building Blocks & Frameworks</div></li>
+              <li><div>Backend Server-Side Logic & Web APIs</div></li>
+              <li><div>Relational Databases & Data Communication</div></li>
+            </ul>
+          </div>
+          <div class="card objective-card">
+            <h3>🏢 Industry & Team Collaboration</h3>
+            <ul class="topic-list">
+              <li><div>Software House Workflow & Developer Roles</div></li>
+              <li><div>Agile, Scrum & Sprint Ceremonies</div></li>
+              <li><div>Version Control with Git & GitHub</div></li>
+            </ul>
+          </div>
+          <div class="card objective-card">
+            <h3>🛡️ SQA, Deployment & Security</h3>
+            <ul class="topic-list">
+              <li><div>Software Quality Assurance & Testing Types</div></li>
+              <li><div>Production Deployment & Windows IIS Web Server</div></li>
+              <li><div>Web Application Security & OWASP Defense</div></li>
+            </ul>
+          </div>
+          <div class="card wide workshop-card">
+            <h3>💡 Whiteboard Teaching Methodology</h3>
+            <p>Topics on these slides serve as an interactive lecture outline. Concepts, architectures, request cycles, and schemas are drawn and explained directly on the whiteboard with real-life examples and active student discussions.</p>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  if(s.type === "day"){
+    const d = s.data;
+    return `
+      <section class="slide" data-index="${index}">
+        <div class="kicker">${d.kicker}</div>
+        <div class="section-head">
+          <div class="section-icon">${d.icon}</div>
+          <div>
+            <div class="day-count">DAY ${d.day} OF 10</div>
+            <h2>${esc(d.title)}</h2>
+          </div>
+        </div>
+        <div class="grid">
+          ${d.sections.map(sec => `
+            <div class="card ${sec.customHtml ? 'wide' : ''}">
+              <h3>${sec.title}</h3>
+              ${sec.topics ? renderTopics(sec.topics) : ''}
+              ${sec.customHtml ? sec.customHtml : ''}
+            </div>
+          `).join("")}
+          <div class="card wide workshop-card">
+            <h3>${d.workshop.title}</h3>
+            <p>${d.workshop.desc}</p>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  if(s.type === "summary"){
+    return `
+      <section class="slide" data-index="${index}">
+        <div class="kicker">Curriculum Matrix</div>
+        <h2>10-Day Theory Roadmap Overview</h2>
+        <p class="lead">Complete overview of topics covered across the 10-day foundational bootcamp.</p>
+        <div class="card wide">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:80px">Day</th>
+                  <th style="width:230px">Subject Module</th>
+                  <th>Core Topics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="badge badge-orange">Day 1</span></td><td><strong>Software Introduction</strong></td><td>Software & hardware concepts, software types, software house ecosystem, and developer roles.</td></tr>
+                <tr><td><span class="badge badge-orange">Day 2</span></td><td><strong>Web Fundamentals</strong></td><td>Internet, WWW, browsers, domains, hosting, client-server model, and 3-tier architecture.</td></tr>
+                <tr><td><span class="badge badge-blue">Day 3</span></td><td><strong>Frontend Engineering</strong></td><td>HTML, CSS, JS, Bootstrap, modern frontend frameworks, and Angular + TypeScript.</td></tr>
+                <tr><td><span class="badge badge-blue">Day 4</span></td><td><strong>Backend Development</strong></td><td>Server-side logic, C# .NET Core, Web APIs, and Object-Oriented Programming (OOP).</td></tr>
+                <tr><td><span class="badge badge-green">Day 5</span></td><td><strong>Database & APIs</strong></td><td>Relational databases, SQL Server, REST API architecture, JSON, and HTTP methods.</td></tr>
+                <tr><td><span class="badge badge-green">Day 6</span></td><td><strong>Software Engineering & SDLC</strong></td><td>SDLC phases, Waterfall vs Agile, Scrum roles, sprints, and ceremonies.</td></tr>
+                <tr><td><span class="badge badge-orange">Day 7</span></td><td><strong>Tools & Teamwork</strong></td><td>Visual Studio, VS Code, Git, GitHub version control, PRs, and collaboration tools.</td></tr>
+                <tr><td><span class="badge badge-orange">Day 8</span></td><td><strong>Problem Solving & Soft Skills</strong></td><td>Logical thinking, root cause analysis, decision making, risk management, and workplace ethics.</td></tr>
+                <tr><td><span class="badge badge-blue">Day 9</span></td><td><strong>QA & Deployment</strong></td><td>Testing methodologies, bug lifecycle, Windows IIS web server, SSL, and CI/CD basics.</td></tr>
+                <tr><td><span class="badge badge-green">Day 10</span></td><td><strong>Cybersecurity</strong></td><td>CIA triad, authentication vs authorization, JWT, OWASP Top 10, and secure coding.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  if(s.type === "guidelines"){
+    return `
+      <section class="slide" data-index="${index}">
+        <div class="kicker">Instructor Guidelines</div>
+        <h2>Bootcamp Delivery Guidelines</h2>
+        <p class="lead">Recommended delivery methodology for the instructor when presenting slides and explaining on the whiteboard.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>🗣️ Simple Language & Real-Life Analogies</h3>
+            <ul class="topic-list">
+              <li><div>Use accessible, clear language paired with relatable daily life analogies.</div></li>
+              <li><div>Relate abstract technical concepts to everyday systems (e.g. restaurant model for client-server-database).</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>📐 Whiteboard Diagrams & Architecture</h3>
+            <ul class="topic-list">
+              <li><div>Draw request-response cycles, data flows, and architectures on the whiteboard.</div></li>
+              <li><div>Illustrate database relationships and OOP class hierarchies visually.</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🤝 Daily Practical Workshops</h3>
+            <ul class="topic-list">
+              <li><div>Allocate the final 20–30 minutes of each lecture to the daily workshop.</div></li>
+              <li><div>Encourage group discussions, diagram sketching, and student participation.</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>❓ Interactive Recaps & Q/A</h3>
+            <ul class="topic-list">
+              <li><div>Begin each session with a 10-minute recap of the previous day's topics.</div></li>
+              <li><div>Encourage students to ask questions and clarify concepts before moving forward.</div></li>
+            </ul>
+          </div>
+          <div class="card wide workshop-card">
+            <h3>🚀 Progression to 30-Day Practical Training</h3>
+            <p>Upon completing these 10 days of theoretical architecture and engineering foundations, students are fully prepared to start the <strong>30-Day Practical Web Development Training</strong> with strong conceptual clarity.</p>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+}
+
+document.getElementById("slides").innerHTML = slides.map(renderSlide).join("");
+
+let current = 0;
+const nav = document.getElementById("nav");
+
+function buildNav(){
+  let out = `
+    <div class="nav-label">Presentation</div>
+    <button data-slide="0"><span>⌂</span><span class="txt">Title Slide</span></button>
+    <button data-slide="1"><span>🎯</span><span class="txt">Course Objectives</span></button>
+    <div class="nav-label">10-Day Modules</div>
+  `;
+
+  theoryDays.forEach((d, i) => {
+    out += `
+      <button class="sub" data-slide="${i + 2}">
+        <span>${d.icon}</span>
+        <span class="txt">Day ${d.day} – ${esc(d.title.split('&')[0].trim())}</span>
+      </button>
+    `;
+  });
+
+  out += `
+    <div class="nav-label">Summary & Wrap-Up</div>
+    <button data-slide="12"><span>📊</span><span class="txt">10-Day Overview</span></button>
+    <button data-slide="13"><span>📋</span><span class="txt">Teaching Guidelines</span></button>
+  `;
+
+  nav.innerHTML = out;
+  nav.querySelectorAll("[data-slide]").forEach(b => {
+    b.addEventListener("click", () => show(Number(b.dataset.slide)));
+  });
+}
+
+buildNav();
+
+function show(n){
+  current = Math.max(0, Math.min(slides.length - 1, n));
+  document.querySelectorAll(".slide").forEach((el, i) => el.classList.toggle("active", i === current));
+  document.querySelectorAll("[data-slide]").forEach(b => b.classList.toggle("active", Number(b.dataset.slide) === current));
+  let s = slides[current];
+  document.getElementById("crumb").textContent = "Theory Bootcamp / " + s.title;
+  document.getElementById("progressText").textContent = (current + 1) + " / " + slides.length;
+  document.getElementById("progressBar").style.width = ((current + 1) / slides.length * 100) + "%";
+  document.getElementById("backBtn").disabled = current === 0;
+  document.getElementById("nextBtn").disabled = current === slides.length - 1;
+  window.scrollTo({top: 0, behavior: "smooth"});
+  if(window.innerWidth <= 890) toggleSidebar(false);
+}
+
+function move(delta){
+  show(current + delta);
+}
+
+function toggleSidebar(force){
+  let sb = document.getElementById("sidebar"),
+      shade = document.getElementById("shade"),
+      main = document.getElementById("main"),
+      bottom = document.getElementById("bottom");
+
+  if(window.innerWidth <= 890){
+    let open = force === undefined ? !sb.classList.contains("mobile-open") : force;
+    sb.classList.toggle("mobile-open", open);
+    shade.classList.toggle("show", open);
+  } else {
+    sb.classList.toggle("collapsed");
+    main.classList.toggle("expanded");
+    bottom.classList.toggle("expanded");
+  }
+}
+
+document.addEventListener("keydown", e => {
+  if(e.key === "ArrowRight") move(1);
+  if(e.key === "ArrowLeft") move(-1);
+});
+
+show(0);
+</script>
+</body>
+</html>
